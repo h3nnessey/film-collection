@@ -1,0 +1,8 @@
+<app-search-bar />
+@for (film of films(); track film.id) {
+  <div>
+    <h3 style="border: 1px solid black; max-width: fit-content">
+      <a [routerLink]="film.id.toString()">{{ film.title }}</a>
+    </h3>
+  </div>
+}
