@@ -1,8 +1,13 @@
 import { Location } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+} from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
-import { distinctUntilChanged, map } from 'rxjs';
+import { FilmService } from '../../services/film/film.service';
 
 @Component({
   selector: 'app-film-details-page',
@@ -15,12 +20,12 @@ export class FilmDetailsPage {
   private readonly route = inject(ActivatedRoute);
   private readonly location = inject(Location);
 
-  protected readonly id = toSignal(
-    this.route.paramMap.pipe(
-      map((params) => params.get('id')),
-      distinctUntilChanged(),
-    ),
-  );
+  private readonly params = toSignal(this.route.params);
+  protected readonly id = computed<number | undefined>(() => {
+    return +this.params()?.['id'];
+  });
+
+  protected film = inject(FilmService).getById(this.id());
 
   protected goBack() {
     this.location.back();

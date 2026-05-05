@@ -1,8 +1,11 @@
-<app-search-bar />
-@for (film of films(); track film.id) {
-  <div>
-    <h3 style="border: 1px solid black; max-width: fit-content">
-      <a [routerLink]="film.id.toString()">{{ film.title }}</a>
-    </h3>
+<app-search-bar (inputChange)="filterFilms($event)" />
+
+@if (filteredFilms().length > 0) {
+  <div class="cards">
+    @for (film of filteredFilms(); track film.id) {
+      <app-film-card [film]="film" />
+    }
   </div>
+} @else {
+  <h2>No films found</h2>
 }

@@ -1,4 +1,15 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Location } from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  effect,
+  inject,
+} from '@angular/core';
+
+interface Breadcrumb {
+  path: string;
+  label: string;
+}
 
 @Component({
   selector: 'app-breadcrumbs',

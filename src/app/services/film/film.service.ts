@@ -1,7 +1,7 @@
 import { computed, Injectable, signal } from '@angular/core';
 import FILMS_MOCK from './films.json';
 
-interface Film {
+export interface Film {
   id: number;
   title: string;
   year: number;

@@ -1,1 +1,12 @@
-<p>film-card works!</p>
+@if (film(); as film) {
+  <div class="card" [routerLink]="[film.id]">
+    <img [src]="film.posterUrl" [alt]="film.title" />
+    <div class="card__content">
+      <h3>{{ film.title }}</h3>
+      <p class="card__description">{{ film.description }}</p>
+    </div>
+    <button (click)="handleClick($event)">
+      {{ film.isFavorite ? "Remove from favorites" : "Add to favorites" }}
+    </button>
+  </div>
+}
