@@ -24,8 +24,18 @@ export class FilmService {
     this._films().filter((film) => film.isFavorite),
   );
 
-  public getById(id?: number) {
-    return this._films().find((film) => film.id === id);
+  public getById(id?: number | string | null) {
+    if (id === null || id === undefined) {
+      return null;
+    }
+
+    const parsedId = +id;
+
+    if (!Number.isFinite(parsedId)) {
+      return null;
+    }
+
+    return this._films().find((film) => film.id === parsedId) || null;
   }
 
   public toggleFavorite(id?: number) {

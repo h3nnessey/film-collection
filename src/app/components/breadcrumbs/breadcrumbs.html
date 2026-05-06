@@ -1,1 +1,8 @@
-<p>breadcrumbs works!</p>
+<div>
+  @for (bc of breadcrumbs(); track bc.label; let last = $last) {
+    <a class="link" [routerLink]="bc.path">{{ bc.label }}</a>
+    @if (!last) {
+      <span> &gt; </span>
+    }
+  }
+</div>

@@ -1,9 +1,12 @@
 @if (film(); as film) {
   <div class="card" [routerLink]="[film.id]">
-    <img [src]="film.posterUrl" [alt]="film.title" />
+    <img class="card__image" [src]="film.posterUrl" [alt]="film.title" />
     <div class="card__content">
-      <h3>{{ film.title }}</h3>
-      <p class="card__description">{{ film.description }}</p>
+      <h3 class="card__title">{{ film.title }}</h3>
+      <div class="card__about">
+        <p class="card__genre">Genre: {{ film.genre }}</p>
+        <p class="card__year">Year: {{ film.year }}</p>
+      </div>
     </div>
     <button (click)="handleClick($event)">
       {{ film.isFavorite ? "Remove from favorites" : "Add to favorites" }}

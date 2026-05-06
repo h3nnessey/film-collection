@@ -1,2 +1,24 @@
-<p>film-details-page of film {{ id() }} works!</p>
-<button (click)="goBack()">Go back</button>
+@if (film(); as film) {
+  <div class="card">
+    <img class="card__image" [src]="film.posterUrl" [alt]="film.title" />
+    <div class="card__content">
+      <h3 class="card__title">{{ film.title }}</h3>
+      <p class="card__description">
+        {{ film.description }}
+      </p>
+      <div class="card__about">
+        <p class="card__genre">Genre: {{ film.genre }}</p>
+        <p class="card__year">Year: {{ film.year }}</p>
+        <p class="card__rating">Rating: {{ film.rating }}</p>
+        <p class="card__duration">
+          Duration: {{ film.duration | filmDuration }}
+        </p>
+      </div>
+      <button></button>
+    </div>
+  </div>
+} @else {
+  <p>Not found</p>
+}
+
+<button (click)="goToHome()">Back to Home</button>

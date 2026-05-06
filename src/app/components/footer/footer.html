@@ -1,3 +1,9 @@
 <footer class="footer">
-  <h3>h3nnessey</h3>
+  <p>{{ year() }} &copy; {{ username() }}</p>
+  <a
+    [href]="`https://github.com/${username()}`"
+    target="_blank"
+    referrerpolicy="no-referrer"
+    >Github</a
+  >
 </footer>

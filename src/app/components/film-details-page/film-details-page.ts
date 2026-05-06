@@ -1,33 +1,43 @@
-import { Location } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  effect,
   inject,
 } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FilmService } from '../../services/film/film.service';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { FilmDurationPipe } from '../../pipes/film-duration-pipe';
 
 @Component({
   selector: 'app-film-details-page',
-  imports: [],
+  imports: [FilmDurationPipe],
   templateUrl: './film-details-page.html',
   styleUrl: './film-details-page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FilmDetailsPage {
   private readonly route = inject(ActivatedRoute);
-  private readonly location = inject(Location);
+  private readonly router = inject(Router);
+  private readonly filmService = inject(FilmService);
+  private readonly params = toSignal(this.route.paramMap);
 
-  private readonly params = toSignal(this.route.params);
-  protected readonly id = computed<number | undefined>(() => {
-    return +this.params()?.['id'];
+  protected readonly film = computed(() => {
+    const id = this.params()?.get('id');
+
+    return this.filmService.getById(id);
   });
 
-  protected film = inject(FilmService).getById(this.id());
+  constructor() {
+    effect(() => {
+      if (!this.film()) {
+        this.goToHome();
+      }
+    });
+  }
 
-  protected goBack() {
-    this.location.back();
+  protected goToHome() {
+    this.router.navigate(['/']);
   }
 }
