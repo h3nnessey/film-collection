@@ -3,7 +3,10 @@
 @if (filteredFilms().length > 0) {
   <div class="cards">
     @for (film of filteredFilms(); track film.id) {
-      <app-film-card [film]="film" />
+      <app-film-card
+        [film]="film"
+        (toggleFavorite)="handleToggleFavorite(film.id)"
+      />
     }
   </div>
 } @else {

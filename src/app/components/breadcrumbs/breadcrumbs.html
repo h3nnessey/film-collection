@@ -1,8 +1,12 @@
-<div>
-  @for (bc of breadcrumbs(); track bc.label; let last = $last) {
-    <a class="link" [routerLink]="bc.path">{{ bc.label }}</a>
-    @if (!last) {
-      <span> &gt; </span>
-    }
+@for (bc of breadcrumbs(); track bc.label; let last = $last) {
+  <a
+    class="link"
+    [routerLink]="bc.path"
+    routerLinkActive="link_active"
+    [routerLinkActiveOptions]="{ exact: bc.exact }"
+    >{{ bc.label }}</a
+  >
+  @if (!last) {
+    <span class="separator">&gt;</span>
   }
-</div>
+}

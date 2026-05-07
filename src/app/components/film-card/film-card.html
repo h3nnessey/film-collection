@@ -1,5 +1,5 @@
 @if (film(); as film) {
-  <div class="card" [routerLink]="[film.id]">
+  <div class="card" [class.favorite]="film.isFavorite" [routerLink]="[film.id]">
     <img class="card__image" [src]="film.posterUrl" [alt]="film.title" />
     <div class="card__content">
       <h3 class="card__title">{{ film.title }}</h3>
@@ -8,8 +8,11 @@
         <p class="card__year">Year: {{ film.year }}</p>
       </div>
     </div>
-    <button (click)="handleClick($event)">
-      {{ film.isFavorite ? "Remove from favorites" : "Add to favorites" }}
-    </button>
+    <app-button
+      (buttonClick)="handleClick($event)"
+      [variant]="favButtonConfig().variant"
+    >
+      {{ favButtonConfig().text }}</app-button
+    >
   </div>
 }

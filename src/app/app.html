@@ -1,6 +1,6 @@
 <div class="container">
-  <app-header />
+  <app-header [title]="title" [navItems]="navItems" />
   <app-breadcrumbs />
   <router-outlet />
-  <app-footer username="h3nnessey" year="2026" />
+  <app-footer [username]="username" [year]="year" />
 </div>

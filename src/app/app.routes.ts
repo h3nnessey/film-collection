@@ -1,4 +1,5 @@
 import type { Routes } from '@angular/router';
+import { filmIdGuard } from './guards/film-id-guard';
 
 export const routes: Routes = [
   {
@@ -16,6 +17,7 @@ export const routes: Routes = [
   },
   {
     path: ':id',
+    canActivate: [filmIdGuard],
     title: 'Film Collection | Film Details',
     loadComponent: () =>
       import('./components/film-details-page/film-details-page').then(

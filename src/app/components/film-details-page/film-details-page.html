@@ -1,11 +1,12 @@
+<app-button (buttonClick)="goToHome()" variant="primary" #btn
+  >Back to Home</app-button
+>
+
 @if (film(); as film) {
   <div class="card">
     <img class="card__image" [src]="film.posterUrl" [alt]="film.title" />
     <div class="card__content">
-      <h3 class="card__title">{{ film.title }}</h3>
-      <p class="card__description">
-        {{ film.description }}
-      </p>
+      <h2 class="card__title">{{ film.title }}</h2>
       <div class="card__about">
         <p class="card__genre">Genre: {{ film.genre }}</p>
         <p class="card__year">Year: {{ film.year }}</p>
@@ -14,11 +15,9 @@
           Duration: {{ film.duration | filmDuration }}
         </p>
       </div>
-      <button></button>
+      <p class="card__description">
+        {{ film.description }}
+      </p>
     </div>
   </div>
-} @else {
-  <p>Not found</p>
 }
-
-<button (click)="goToHome()">Back to Home</button>

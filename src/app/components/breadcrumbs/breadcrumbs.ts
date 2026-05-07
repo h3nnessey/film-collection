@@ -5,23 +5,18 @@ import {
   inject,
 } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { NavigationEnd, Router, RouterLink } from '@angular/router';
-import { FilmService } from '../../services/film/film.service';
+import {
+  NavigationEnd,
+  Router,
+  RouterLink,
+  RouterLinkActive,
+} from '@angular/router';
+import { AppRoutes } from '@/routes';
+import { FilmService } from '@/services/film/film.service';
 
-interface Breadcrumb {
-  path: string;
-  label: string;
-}
-
-const DEFAULT_BREADCRUMBS: Breadcrumb[] = [
-  {
-    path: '/',
-    label: 'Home',
-  },
-];
 @Component({
   selector: 'app-breadcrumbs',
-  imports: [RouterLink],
+  imports: [RouterLink, RouterLinkActive],
   templateUrl: './breadcrumbs.html',
   styleUrl: './breadcrumbs.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -40,28 +35,24 @@ export class Breadcrumbs {
 
       const id = paths[1];
 
-      if (id === 'about') {
-        return [
-          {
-            path: '/about',
-            label: 'About',
-          },
-        ];
+      if (id === AppRoutes.About.path) {
+        return [AppRoutes.About];
       }
 
       const film = this.filmService.getById(id);
 
       if (film) {
         return [
-          ...DEFAULT_BREADCRUMBS,
+          AppRoutes.Home,
           {
-            path: `/${id}`,
+            path: `${id}`,
             label: film.title,
+            exact: false,
           },
         ];
       }
     }
 
-    return DEFAULT_BREADCRUMBS;
+    return [AppRoutes.Home];
   });
 }

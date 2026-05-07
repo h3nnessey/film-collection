@@ -1,11 +1,39 @@
 .card {
-  &__description {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    word-wrap: break-word;
-    max-width: 300px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  gap: 0.5rem;
+  cursor: pointer;
+
+  &.favorite::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-style: solid;
+    border-width: 0 3rem 3rem 0;
+    border-color: transparent #af0f0f transparent transparent;
+  }
+
+  &__image {
+    width: 100%;
+    object-fit: cover;
+    height: auto;
+    max-height: 500px;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+
+  &__about {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: flex-end;
   }
 }

@@ -1,3 +1,4 @@
+import { FilmService } from '@/services/film/film.service';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -5,9 +6,8 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { FilmService } from '../../services/film/film.service';
-import { SearchBar } from '../search-bar/search-bar';
 import { FilmCard } from '../film-card/film-card';
+import { SearchBar } from '../search-bar/search-bar';
 
 @Component({
   selector: 'app-films-page',
@@ -17,17 +17,22 @@ import { FilmCard } from '../film-card/film-card';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FilmsPage {
-  private readonly films = inject(FilmService).films;
-
+  private readonly filmService = inject(FilmService);
   protected readonly searchTerm = signal<string>('');
 
   protected readonly filteredFilms = computed(() => {
-    return this.films().filter((film) =>
-      film.title.toLowerCase().includes(this.searchTerm().toLowerCase()),
-    );
+    return this.filmService
+      .films()
+      .filter((film) =>
+        film.title.toLowerCase().includes(this.searchTerm().toLowerCase()),
+      );
   });
 
   protected filterFilms(searchTerm: string) {
     this.searchTerm.set(searchTerm);
+  }
+
+  protected handleToggleFavorite(id: number) {
+    this.filmService.toggleFavorite(id);
   }
 }

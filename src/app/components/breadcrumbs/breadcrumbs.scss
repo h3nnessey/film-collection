@@ -1,5 +1,22 @@
+.link {
+  text-decoration: none;
+  color: #000000;
+  opacity: 0.6;
+  transition: opacity 0.15s ease-in-out;
+
+  &_active {
+    opacity: 0.3;
+  }
+
+  &:hover:not(.link_active) {
+    opacity: 1;
+  }
+}
+
 .link:last-child {
   pointer-events: none;
-  text-decoration: none;
-  opacity: 0.5;
+}
+
+.separator {
+  margin: 0 0.2rem;
 }

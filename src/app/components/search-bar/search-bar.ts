@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, output } from '@angular/core';
-import { AutoFocus } from '../../directives/auto-focus';
+import { AutoFocus } from '@/directives/auto-focus';
 
 @Component({
   selector: 'app-search-bar',

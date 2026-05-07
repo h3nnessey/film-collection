@@ -2,17 +2,17 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
-  effect,
   inject,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FilmService } from '../../services/film/film.service';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { FilmDurationPipe } from '../../pipes/film-duration-pipe';
+import { FilmDurationPipe } from '@/pipes/film-duration-pipe';
+import { FilmService } from '@/services/film/film.service';
+import { Button } from '../button/button';
 
 @Component({
   selector: 'app-film-details-page',
-  imports: [FilmDurationPipe],
+  imports: [Button, FilmDurationPipe],
   templateUrl: './film-details-page.html',
   styleUrl: './film-details-page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -28,14 +28,6 @@ export class FilmDetailsPage {
 
     return this.filmService.getById(id);
   });
-
-  constructor() {
-    effect(() => {
-      if (!this.film()) {
-        this.goToHome();
-      }
-    });
-  }
 
   protected goToHome() {
     this.router.navigate(['/']);
